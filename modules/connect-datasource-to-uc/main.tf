@@ -1,6 +1,10 @@
 locals {
-  udc_name =  var.udc_name
-  udc_csv = var.udc_csv_parsed
+  udc_name        = var.udc_name
+  udc_csv         = var.udc_csv_parsed
+  use_sftp        = var.gdp_ssh_username != "" && var.gdp_ssh_privatekeypath != ""
+  # For GDP 12.2.1+: provider uploads via API from local file
+  # For older GDP: SFTP uploads to remote path
+  csv_path        = local.use_sftp ? format("%s/%s.csv", var.profile_api_directory, var.udc_name) : local_file.csv_temp.filename
 }
 
 resource "local_file" "csv_temp" {
@@ -9,6 +13,7 @@ resource "local_file" "csv_temp" {
 }
 
 resource "terraform_data" "copy_csv" {
+  count      = local.use_sftp ? 1 : 0
   depends_on = [local_file.csv_temp]
   
   input = {
@@ -43,10 +48,11 @@ output "test" {
 }
 
 resource "guardium-data-protection_import_profiles" "import_profiles" {
-  depends_on = [terraform_data.copy_csv]
-  access_token = data.guardium-data-protection_authentication.access_token.access_token
-  path_to_file = format("%s/%s.csv", var.profile_api_directory, var.udc_name)
-  update_mode = true
+  depends_on       = [local_file.csv_temp, terraform_data.copy_csv]
+  access_token     = data.guardium-data-protection_authentication.access_token.access_token
+  path_to_file     = local.csv_path
+  update_mode      = true
+  test_connections = var.test_connections
 }
 
 resource "guardium-data-protection_install_connector" "install_connector" {

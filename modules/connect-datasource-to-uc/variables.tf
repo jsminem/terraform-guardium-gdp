@@ -44,12 +44,14 @@ variable "gdp_password" {
 
 variable "gdp_ssh_username" {
   type        = string
-  description = "The ssh user for logging in to Guardium"
+  description = "The ssh user for logging in to Guardium. Leave empty to skip SFTP file transfer."
+  default     = ""
 }
 
 variable "gdp_ssh_privatekeypath" {
   type        = string
-  description = "The path to the ssh privatekey for logging in to Guardium"
+  description = "The path to the ssh privatekey for logging in to Guardium. Leave empty to skip SFTP file transfer."
+  default     = ""
 }
 
 variable "gdp_mu_host" {
@@ -74,4 +76,10 @@ variable "profile_api_directory" {
   type        = string
   description = "Full filesystem path for Guardium API to read CSV files"
   default     = "/var/IBM/Guardium/file-server/upload"
+}
+
+variable "test_connections" {
+  type        = bool
+  description = "Test connections for imported profiles that support it (e.g., Kafka-based UCs)"
+  default     = false
 }

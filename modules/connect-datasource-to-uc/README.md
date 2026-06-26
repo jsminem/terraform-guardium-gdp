@@ -51,9 +51,10 @@ module "universal_connector" {
 | gdp_port | Port for the Guardium server | `string` | `"8443"` | no |
 | gdp_username | Username for Guardium authentication | `string` | n/a | yes |
 | gdp_password | Password for Guardium authentication | `string` | n/a | yes |
-| gdp_ssh_username | SSH username for Guardium server access | `string` | n/a | yes |
-| gdp_ssh_privatekeypath | Path to SSH private key for Guardium server access | `string` | n/a | yes |
+| gdp_ssh_username | SSH username for Guardium server access. Leave empty to skip SFTP file transfer. | `string` | `""` | no |
+| gdp_ssh_privatekeypath | Path to SSH private key for Guardium server access. Leave empty to skip SFTP file transfer. | `string` | `""` | no |
 | gdp_mu_host | Comma-separated list of Guardium Managed Units to deploy the profile | `string` | `""` | no |
+| test_connections | Test connections for imported profiles that support it (e.g., Kafka-based UCs) | `bool` | `false` | no |
 
 ## Outputs
 
