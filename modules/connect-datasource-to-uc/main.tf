@@ -26,10 +26,11 @@ data "guardium-data-protection_authentication" "access_token" {
 
 # Import Universal Connector profiles from CSV file via API multipart upload
 resource "guardium-data-protection_import_profiles" "import_profiles" {
-  depends_on   = [local_file.csv_temp]
-  access_token = data.guardium-data-protection_authentication.access_token.access_token
-  path_to_file = abspath(local_file.csv_temp.filename)
-  update_mode  = true
+  depends_on       = [local_file.csv_temp]
+  access_token     = data.guardium-data-protection_authentication.access_token.access_token
+  path_to_file     = abspath(local_file.csv_temp.filename)
+  update_mode      = true
+  test_connections = var.test_connections
 }
 
 # Install the Universal Connector on the specified Guardium Managed Unit

@@ -53,3 +53,9 @@ variable "udc_name" {
   default     = ""
   description = "Universal Data Collector name. This will be the unique name used in the UI"
 }
+
+variable "test_connections" {
+  type        = bool
+  default     = false
+  description = "Test connections for imported profiles that support it (e.g., Kafka-based UCs)"
+}

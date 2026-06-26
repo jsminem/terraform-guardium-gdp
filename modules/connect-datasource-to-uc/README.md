@@ -50,6 +50,7 @@ module "universal_connector" {
 | gdp_username | Username for Guardium authentication | `string` | n/a | yes |
 | gdp_password | Password for Guardium authentication | `string` | n/a | yes |
 | gdp_mu_host | Comma-separated list of Guardium Managed Units to deploy the profile | `string` | `""` | no |
+| test_connections | Test connections for imported profiles that support it (e.g., Kafka-based UCs) | `bool` | `false` | no |
 
 ## Outputs
 
