@@ -1,5 +1,7 @@
 # Guardium Data Protection Universal Connector Module
 
+This Terraform module installs and configures Kafka-based Universal Data Connector (UDC) in IBM Guardium Data Protection (GDP). The module handles authentication, profile import, and connector installation. It also supports test connection to verify that Guardium can successfully reach the datasource after the connector profile is imported.
+
 **Supported Versions:** This module requires IBM Guardium Data Protection (GDP) version **12.2.1 and above**.
 
 ## Overview
